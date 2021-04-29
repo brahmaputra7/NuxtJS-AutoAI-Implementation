@@ -1,0 +1,25 @@
+{
+  "name": "it-salary-prediction",
+  "version": "1.0.0",
+  "description": "Prediction of Salary for IT Professionals based on years of experience, city, programming language, etc",
+  "author": "Brahma",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@ibm-functions/iam-token-manager": "^1.0.5",
+    "@lottiefiles/lottie-player": "^1.0.3",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "nuxt": "^2.0.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.0.0"
+  }
+}

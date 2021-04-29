@@ -1,0 +1,204 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+#nav{
+	position: fixed;
+
+  top: 0;
+	width: 100%;
+	z-index: 9999;
+	/* box-shadow: var(--box-shadow); */
+}
+
+.header {
+	display: flex;
+	background-color: #fff;
+	background: linear-gradient(45deg, #ffffff 0.1%, rgba(255, 255, 255, 0) 99.89%);
+	backdrop-filter: blur(8px);
+	width: 95%;
+	max-width: 1200px;
+	border-radius: 10px;
+	box-shadow: 0px 100px 80px rgba(56, 156, 255, 0.13), 0px 22.3363px 17.869px rgba(56, 146, 255, 0.077), 0px 6.6501px 5.32008px rgba(56, 139, 255, 0.053);
+	margin: 15px auto;
+	padding: 15px 25px;
+	align-items: center;
+	/* box-shadow: var(--box-shadow); */
+}
+
+.header span {
+	background-color: #ffffff;
+	color: rgb(97, 97, 97);
+	padding: 10px 25px;
+	margin: 0px 5px;
+	border-radius: 4px;
+	transition: 0.3s;
+	font-size: 10pt;
+	font-weight: 600;
+}
+
+.header span:hover{
+	background-color: #F9F9F9;
+	cursor: pointer;
+}
+
+.header span.primary-mn {
+	background-color: #194b8f;
+	color: #fff;
+}
+
+.header span.primary-mn:hover {
+	background-color: #194b8f;
+	color: #fff;
+	transform: scale(1.05, 1.05);
+	box-shadow: var(--box-shadow);
+}
+
+.textBlue {
+    color:#194b8f;
+}
+
+.bg-blue {
+    
+	background: radial-gradient(50% 50% at 80% 10%, rgba(32, 233, 255, 0.51) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.f20 {
+    font-size:1.5em;
+}
+
+.f18 {
+    font-size:1.65em;
+}
+
+.f14 {
+    font-size:1.2em;
+}
+.f12 {
+    font-size:1.05em;
+}
+.f11{
+    font-size:0.90em;
+}
+.f10{
+    font-size:0.85em;
+}
+.f9{
+    font-size:0.7em;
+}
+
+
+.fRegular {
+    font-weight: 400;
+}
+
+.mw500 {
+    max-width:500px;
+}
+
+.fMedium {
+
+    font-weight: 500;
+}
+
+.fSemiBold {
+
+    font-weight: 600;
+}
+
+.fBold {
+
+    font-weight: 700;
+}
+
+.fExtraBold {
+    font-weight: 800;
+}
+
+.fBlack {
+    font-weight: 800;
+}
+
+
+.reverseMobile {
+    a {
+        text-decoration:none;
+        color:#67a7db !important;
+    }
+}
+
+.mainText {
+    font-size:4em;
+    font-weight: 900;
+    line-height: 1;
+    font-family: 'Montserrat', sans-serif !important;
+    span{
+        background: linear-gradient(273.67deg, #20ffc4 -4.69%, #2875fa 96.99%);
+        
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+}
+
+.questionTitle {
+    font-size:2em;
+}
+
+.upToDown {
+    animation: MoveUpDown 5s linear infinite;
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    bottom: 0;
+}
+
+.choiceButton {
+    &:hover {
+        background-color: #23d0d7;
+        color:#fff;
+        
+    .v-icon {
+        color:#fff !important;
+    }
+    }
+    .v-icon {
+        color:#23d0d7 !important;
+    }
+    cursor:pointer;
+    transition:0.3s;
+    display:flex;
+    align:center;
+    padding:20px;
+    border-radius:16px;
+    border:5px solid #23d0d7;
+    color:#23d0d7;
+    font-weight: bold;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+      bottom: 0;
+    }
+    50% {
+      bottom: 20px;
+    }
+  }
+
+@media only screen and (max-width: 960px) {
+    .mainContent-container {
+        padding-bottom:100px;
+    }
+    .mainText {
+        text-align: center;
+        font-size:2em;
+    }
+    .reverseMobile {
+        flex-direction: column-reverse !important;
+        img {
+            margin-top:50px;
+        }
+    }
+}
