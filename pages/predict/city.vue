@@ -207,7 +207,7 @@
                                             <div>years</div>
                                         </template>
                                     </v-text-field>
-                                    <v-btn block color="blue"class="mt-5"  dark @click="nextStep('Total years of experience',yearsExperience)">OK!</v-btn>
+                                    <v-btn block class="mt-5" color="blue" dark @click="nextStep('Total years of experience',yearsExperience)">OK!</v-btn>
                                 </div>
                             </div>
                         </div>
@@ -296,24 +296,15 @@
                                 <span class="textBlue" v-if="features['Main language at work']=='Italian'">meraviglioso! </span>
                                 <span class="textBlue" v-if="features['Main language at work']=='French'">Merveilleuse! </span>
                                 <span class="textBlue" v-if="features['Main language at work']=='Russian'">замечательный! </span>
-                                Which city do you expect to work in?</div>
+                                Please input your expected salary.</div>
                             <div class="d-flex justify-center">
                                 <div  class="mt-10 d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
-                                    <div class="choiceButton ma-2" @click="nextStep('City','Berlin')">
-                                        Berlin
-                                    </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('City','Amsterdam')">
-                                        Amsterdam
-                                    </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('City','Cologne')">
-                                        Cologne
-                                    </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('City','Frankfurt')">
-                                        Frankfurt
-                                    </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('City','Munich')">
-                                        Munich
-                                    </div>
+                                    <v-text-field  style="width:100%" :min="10000" :max="350000" class="elevation-0 mr-3" flat dense hide-details type="number" solo-inverted v-model="expectedSalary">
+                                        <template v-slot:prepend-inner>
+                                            <div>€</div>
+                                        </template>
+                                    </v-text-field>
+                                    <v-btn block class="mt-5" color="blue" dark @click="nextStep('Yearly brutto salary in EUR',expectedSalary)">OK!</v-btn>
                                 </div>
                             </div>
                         </div>
@@ -387,27 +378,12 @@
                         </div>
                         
                     <div v-else>
-                        <div v-if="checked&&predictSuccess&&!predictFailed">
+                        <div>
                             <div class="questionTitle fBold" style="text-align:center">
-                                 <span class="textBlue">I told you, You're awesome! </span>
-                                here is our expected salary:</div>
-                            <div class="d-flex justify-center">
-                               <div class="mt-10" style="padding:10px;border-radius:16px;background-color:#259758;color:#fff;font-size:2.5em;font-weight:bold">
-                                   <span class="yellow--text">€</span>{{formatSalary(expectedSalary)}}
-                               </div>
-                            </div>
+                                 <span class="textBlue">Sorry, this feature is under construction. Try predicting the <a @click="$router.push('/predict/salary')"> salary</a> instead. </span>
+                                </div>
                             <div class="d-flex align-center justify-center mt-10" ><b style="cursor:pointer" class="mr-3 blue--text" @click="$router.push('/predict')">Let's try another case!</b> <b style="cursor:pointer" class="pink--text" @click="$router.push('/')">Go to landing page</b></div>
-                        </div>
-                        <div v-if="checked&&!predictSuccess&&predictFailed">
-                             <div class="questionTitle fBold" style="text-align:center">
-                                 <span class="red--text">Sorry, </span>
-                                predicting process failed.</div>
-                            <div class="d-flex justify-center">
-                               <div class="mt-10" style="padding:10px;border-radius:16px;background-color:red;color:#fff;font-size:1.5em;font-weight:bold">
-                                   Error: {{errorCode}}
-                               </div>
-                            </div>
-                            <div class="d-flex align-center justify-center mt-10" ><b style="cursor:pointer" class="mr-3 blue--text" @click="$router.push('/predict')">Let's try another case!</b> <b style="cursor:pointer" class="pink--text" @click="$router.push('/')">Go to landing page</b></div>
+
                         </div>
                     </div>
                     </div>
@@ -430,7 +406,7 @@ import qs from 'qs'
                 features:{            
                     "Age":25,
                     "Gender":'Male',
-                    "City":'Berlin',
+                    "Yearly brutto salary in EUR":'10000',
                     "Position":'Backend Developer',
                     "Total years of experience":1,
                     "Seniority level":'Senior',
@@ -443,18 +419,12 @@ import qs from 'qs'
                 picker:'1996-04-26',
                 accessToken:'',
                 sendLoader:false,
-                expectedSalary:0,
-                errorCode:'',
-                predictFailed:false,
-                predictSuccess:false,
-                checked:false
+                expectedSalary:10000,
+                city:'Amsterdam'
             }
         },
         methods:{
             retrieveTokenData(){
-                this.checked =false
-                this.predictFailed=false
-                this.predictSuccess=false
                 this.sendLoader = true
                 var data = qs.stringify({
                 'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
@@ -471,6 +441,7 @@ import qs from 'qs'
 
                 axios(config)
                   .then((response)=>{
+                    console.log(response.data);
                     this.accessToken = response.data.access_token
                     this.startPredicting()
                   })
@@ -485,7 +456,7 @@ import qs from 'qs'
                         "fields": [
                             "Age",
                             "Gender",
-                            "City",
+                            "Yearly brutto salary in EUR",
                             "Position",
                             "Total years of experience",
                             "Seniority level",
@@ -498,7 +469,7 @@ import qs from 'qs'
                             [
                             this.features['Age'],
                             this.features['Gender'],
-                            this.features['City'],
+                            this.features['Yearly brutto salary in EUR'],
                             this.features['Position'],
                             this.features['Total years of experience'],
                             this.features['Seniority level'],
@@ -512,6 +483,8 @@ import qs from 'qs'
                     ]
                 }
 
+                console.log(data)
+
                 axios({
                     url:'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/proxy-of-watson-auto-ai?version=2021-04-29',
                     method:'POST',
@@ -520,19 +493,16 @@ import qs from 'qs'
                     },
                      data:data
                 }).then(res=>{
-                    this.expectedSalary = res.data.predictions[0].values[0][0].toFixed(0)
-                    
-                            this.predictSuccess = true
-                            this.predictFailed = false
+                    console.log(res)
+                    this.city = res.data.predictions[0].values[0][0]
+                    console.l
                 }).catch(err=>{
+                     console.log(err)
                         if(err.response){
-                            this.errorCode = err.response.data.errors[0].code
+                            console.log(err.response)
                         }
-                            this.predictSuccess = false
-                            this.predictFailed = true
                 }).finally(res=>{
                     this.sendLoader = false
-                    this.checked = true
                 })
             },
             nextStep(features,value){
@@ -543,10 +513,11 @@ import qs from 'qs'
                     let age = (today.getFullYear() - born.getFullYear())
                     this.features[features] = age
                 }else if(this.predictStep==10){
-                    this.retrieveTokenData()
+                    //this.retrieveTokenData()
                 }else{
                      this.features[features] = value
                 }
+                console.log(this.features)
                 this.predictStep+=1
             },
             formatSalary(value) {

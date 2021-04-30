@@ -1,8 +1,6 @@
 <template>
   <v-app>
-      <v-fade-transition>
         <nuxt />
-      </v-fade-transition>
   </v-app>
 </template>
 

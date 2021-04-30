@@ -28,7 +28,7 @@
               <div class="mainText mb-5">
                 <span class="mainText_content">Career decision intelligence</span>
               </div>
-              <div class="fMedium">We help IT Professionals to predict their salary in EU Region based on the skillsets, years of experience, specialties, and other features. We also able to suggest which city is the most relevant to start their new career.</div>
+              <div class="fMedium">We help IT Professionals to predict their salary in EU Region, based on the skillsets, years of experience, specialties, and other features. We also able to suggest which city is the most relevant to start their new career.</div>
               <v-btn class="mt-5" rounded outlined color="blue"  @click="$router.push('/predict')">Get Started <v-icon>mdi-arrow-right</v-icon></v-btn>
               <v-alert
                 class="mt-5"
@@ -72,84 +72,10 @@ export default {
     accessToken:''
   },
   created(){
-    // var data = qs.stringify({
-    // 'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
-    // 'apikey': 'wRTjV0GKOVhUw5s3_kU5BSEn8IGWIPBIM2e-b-V5q6BQ' 
-    // });
-    // var config = {
-    //   method: 'post',
-    //   url: 'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/iam-proxy',
-    //   headers: { 
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data : data
-    // };
 
-    // axios(config)
-    //   .then((response)=>{
-    //     console.log(response.data);
-    //     this.accessToken = response.data.access_token
-    //     this.startPredicting()
-    //   })
-    //   .catch((error)=> {
-    //     console.log(error);
-    //   });
-    
+  
       },
     methods:{
-      startPredicting(){
-        let data = {
-          "input_data": [
-            {
-              "fields": [
-                "Age",
-                "Gender",
-                "City",
-                "Position",
-                "Total years of experience",
-                "Seniority level",
-                "Your main technology",
-                "Main language at work",
-                "Company size",
-                "Company type"
-              ],
-              "values": [
-                [
-                  26,
-                  "Male",
-                  "Berlin",
-                  "Software Engineer",
-                  "5",
-                  "Senior",
-                  "Typescript",
-                  "English",
-                  "51-100",
-                  "Product"
-                ]
-              ]
-            }
-          ]
-        }
-
-        console.log(data)
-
-        axios({
-          url:'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/proxy-of-watson-auto-ai?version=2021-04-29',
-          method:'POST',
-          headers:{
-             'Authorization':'Bearer ' + this.accessToken
-          },
-          data:data
-        }).then(res=>{
-          console.log(res)
-        }).catch(err=>{
-          console.log(err)
-          if(err.response){
-            console.log(err.response)
-          }
-        })
-
-      }      
     }
   }
 </script>
