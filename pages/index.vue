@@ -28,7 +28,7 @@
               <div class="mainText mb-5">
                 <span class="mainText_content">Career decision intelligence</span>
               </div>
-              <div class="fMedium">We help IT Professionals to predict their salary in EU Region, based on the skillsets, years of experience, specialties, and other features. We also able to suggest which city is the most relevant to start their new career.</div>
+              <div class="fMedium">We help IT Professionals to predict their salary in EU Region, based on the skillset, years of experience, languages, and other features. We also able to suggest which city is the most relevant to start their new career.</div>
               <v-btn class="mt-5" rounded outlined color="blue"  @click="$router.push('/predict')">Get Started <v-icon>mdi-arrow-right</v-icon></v-btn>
               <v-alert
                 class="mt-5"

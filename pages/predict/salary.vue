@@ -11,7 +11,7 @@
                 </div>
                 <v-fade-transition hide-on-leave>
                     <div v-if="predictStep==1">
-                        <div class="questionTitle fBold" style="text-align:center"><span class="textBlue"> Awesome!</span> first, I need to know which super hero are you.</div>
+                        <div class="questionTitle fBold" style="text-align:center"><span class="textBlue"> Awesome!</span> first, I need to know which superhero are you.</div>
                         <div class="d-flex justify-center">
                             <div class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                 <div class="squareButton ma-2" @click="nextStep('Position','Backend Developer')">
@@ -46,7 +46,7 @@
                 <v-fade-transition  hide-on-leave>
                     <div v-if="predictStep==2">
                         <div v-if="features['Position']=='Backend Developer'">
-                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Woah, a Backend! Loved it.</span> please pick your most relevan technology.</div>
+                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Woah, a Backend! Loved it.</span> please pick your most relevant technology.</div>
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','PHP')">
@@ -202,9 +202,9 @@
                             <div class="questionTitle fBold" style="text-align:center"><span class="textBlue">Great! </span> How long is your work experience in this field?</div>
                             <div class="d-flex justify-center">
                                 <div  class="mt-10 d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
-                                    <v-text-field style="width:100%"  :min="0" max="50" class="elevation-0 mr-3" flat dense hide-details type="number" solo-inverted v-model="yearsExperience">
+                                    <v-text-field style="width:100%;font-size:2em"  :min="0" max="50" class="elevation-0 mr-3" flat dense hide-details type="number" solo-inverted v-model="yearsExperience">
                                         <template v-slot:append>
-                                            <div>years</div>
+                                            <div style="font-size:0.5em">years</div>
                                         </template>
                                     </v-text-field>
                                     <v-btn block color="blue"class="mt-5"  dark @click="nextStep('Total years of experience',yearsExperience)">OK!</v-btn>
@@ -390,7 +390,7 @@
                         <div v-if="checked&&predictSuccess&&!predictFailed">
                             <div class="questionTitle fBold" style="text-align:center">
                                  <span class="textBlue">I told you, You're awesome! </span>
-                                here is our expected salary:</div>
+                                here is your predicted salary:</div>
                             <div class="d-flex justify-center">
                                <div class="mt-10" style="padding:10px;border-radius:16px;background-color:#259758;color:#fff;font-size:2.5em;font-weight:bold">
                                    <span class="yellow--text">€</span>{{formatSalary(expectedSalary)}}
@@ -456,12 +456,16 @@ import qs from 'qs'
                 this.predictFailed=false
                 this.predictSuccess=false
                 this.sendLoader = true
-                var data = qs.stringify({
-                'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
-                'apikey': 'wRTjV0GKOVhUw5s3_kU5BSEn8IGWIPBIM2e-b-V5q6BQ' 
+
+                //data to send
+                let data = qs.stringify({
+                    'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
+                    'apikey': 'wRTjV0GKOVhUw5s3_kU5BSEn8IGWIPBIM2e-b-V5q6BQ' 
                 });
-                var config = {
-                  method: 'post',
+
+                //axios config with method, url and header
+                let config = {
+                  method: 'POST',
                   url: 'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/iam-proxy',
                   headers: { 
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -469,16 +473,21 @@ import qs from 'qs'
                   data : data
                 };
 
+                //sending request
                 axios(config)
                   .then((response)=>{
                     this.accessToken = response.data.access_token
+                    // start predicting when th token is ready
                     this.startPredicting()
                   })
                   .catch((error)=> {
                     console.log(error);
                   });
+
             },
             startPredicting(){
+                
+                //data input
                 let data = {
                     "input_data": [
                         {
@@ -512,28 +521,36 @@ import qs from 'qs'
                     ]
                 }
 
+                //sending POST request to api endpoint
                 axios({
                     url:'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/proxy-of-watson-auto-ai?version=2021-04-29',
                     method:'POST',
+                    //set up access token (IAM Token)
                     headers:{
                         'Authorization':'Bearer ' + this.accessToken
                     },
+                    //include the data
                      data:data
                 }).then(res=>{
+                    //set orediction result result
                     this.expectedSalary = res.data.predictions[0].values[0][0].toFixed(0)
-                    
-                            this.predictSuccess = true
-                            this.predictFailed = false
+                    console.log(res)
+                    //set success and failed status
+                    this.predictSuccess = true
+                    this.predictFailed = false
                 }).catch(err=>{
-                        if(err.response){
-                            this.errorCode = err.response.data.errors[0].code
-                        }
-                            this.predictSuccess = false
-                            this.predictFailed = true
+                    if(err.response){
+                        //print error
+                        this.errorCode = err.response.data.errors[0].code
+                    }
+                    this.predictSuccess = false
+                    this.predictFailed = true
                 }).finally(res=>{
                     this.sendLoader = false
                     this.checked = true
                 })
+
+
             },
             nextStep(features,value){
                 if(this.predictStep==9){

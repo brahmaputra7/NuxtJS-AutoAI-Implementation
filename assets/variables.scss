@@ -183,6 +183,24 @@
     font-weight: bold;
 }
 
+.choiceButton_disabled {
+    max-width: 600px;
+    .v-icon {
+        color:#787878 !important;
+    }
+    cursor:pointer;
+    transition:0.3s;
+    display:flex;
+    align:center;
+    padding:20px;
+    border-radius:16px;
+    border:5px solid #f1f1f1;
+    background-color:#f1f1f1 !important;
+    color:#787878;
+    font-weight: bold;
+}
+
+
 .squareButton {
     img {
         width:100%;

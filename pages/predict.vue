@@ -15,8 +15,8 @@
                         <div class="choiceButton ma-2 mx-auto" @click="$router.push('/predict/salary')">
                             <v-icon class="mr-2">mdi-cash-multiple</v-icon>I want to predict my salary if I work in EU Region
                         </div>
-                        <div class="choiceButton ma-2 mx-auto" @click="$router.push('/predict/city')">
-                            <v-icon class="mr-2">mdi-city-variant</v-icon> I want to know which city is the best that suit my expected salary
+                        <div class="choiceButton_disabled ma-2 mx-auto">
+                            <v-icon class="mr-2">mdi-city-variant</v-icon> (Coming Soon) I want to know which city is the best that suit my expected salary
                         </div>
                     </div>
                 </div>
