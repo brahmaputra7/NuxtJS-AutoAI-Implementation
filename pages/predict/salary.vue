@@ -119,12 +119,16 @@
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','AWS')">
-                                        <img src="~assets/aws.png"/>
-                                        Amazon Web Services
+                                        <img src="~assets/ibm.png"/>
+                                         IBM Cloud
                                     </div>
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','Azure')">
                                         <img src="~assets/azure.png"/>
                                         Azure
+                                    </div>
+                                    <div class="squareButton ma-2" @click="nextStep('Your main technology','AWS')">
+                                        <img src="~assets/aws.png"/>
+                                        Amazon Web Services
                                     </div>
                                 </div>
                             </div>
