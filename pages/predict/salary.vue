@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div v-if="features['Position']=='ML Engineer'">
-                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Data Scientist! Loved it.</span> please pick your most relevan technology.</div>
+                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Machine Learning! Loved it.</span> please pick your most relevan technology.</div>
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','Python')">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                          <div v-if="features['Position']=='Data Analyst'">
-                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Data Scientist! Loved it.</span> please pick your most relevan technology.</div>
+                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Data Analyst! Loved it.</span> please pick your most relevan technology.</div>
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','Python')">
@@ -161,7 +161,7 @@
                                         C++
                                     </div>
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','ASM')">
-                                        <img src="~assets/r.png"/>
+                                        <img src="~assets/assembly.png"/>
                                         Assembly Language
                                     </div>
                                 </div>
@@ -396,6 +396,9 @@
                                    <span class="yellow--text">€</span>{{formatSalary(expectedSalary)}}
                                </div>
                             </div>
+                            <div class="d-flex align-center justify-center mt-10">
+                                <v-btn :href="getLink" target="_blank" outlined color="blue">discover <b class="mx-2">{{features['Position']}}</b> Jobs in <b class="mx-2">{{features['City']}}</b></v-btn>
+                            </div>
                             <div class="d-flex align-center justify-center mt-10" ><b style="cursor:pointer" class="mr-3 blue--text" @click="$router.push('/predict')">Let's try another case!</b> <b style="cursor:pointer" class="pink--text" @click="$router.push('/')">Go to landing page</b></div>
                         </div>
                         <div v-if="checked&&!predictSuccess&&predictFailed">
@@ -570,6 +573,30 @@ import qs from 'qs'
                 let val = (value/1).toFixed(0).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
+        },
+        computed:{
+            getLink:function(){
+                let cityCode = 'Berlin'
+
+                if(this.features['City']=='Berlin'){
+                    cityCode = 'de3'
+                }
+                if(this.features['City']=='Amsterdam'){
+                    cityCode = 'nl-NS'
+                }
+                if(this.features['City']=='Cologne'){
+                    cityCode = 'de-NS'
+                }
+                if(this.features['City']=='Frankfurt'){
+                    cityCode = 'de-NS'
+                }
+                if(this.features['City']=='Munich'){
+                    cityCode = 'de2'
+                }
+
+                let link = 'https://ec.europa.eu/eures/portal/jv-se/search?page=1&resultsPerPage=10&orderBy=BEST_MATCH&locationCodes='+cityCode+'&keywordsEverywhere='+this.features['Position']
+                return link
+            }
         }
     }
 </script>
