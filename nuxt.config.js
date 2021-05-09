@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'spa',
+  target: 'server',
   /*
   ** Headers of the page
   */
@@ -24,6 +24,10 @@ export default {
   /*
   ** Global CSS
   */
+  serverMiddleware: [
+    { path: "/server-middleware", handler: "~/server-middleware/rest.js" },
+  ],
+
   css: [
   ],
   /*

@@ -72,9 +72,8 @@ export default {
     accessToken:''
   },
   created(){
-
   
-      },
+    },
     methods:{
     }
   }

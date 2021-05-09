@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div v-if="features['Position']=='DevOps'">
-                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">DevOps master! Loved it.</span> please pick your most relevan infrastructure platform.</div>
+                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">DevOps master! Loved it.</span> please pick your most relevant infrastructure platform.</div>
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','AWS')">
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <div v-if="features['Position']=='Mobile Developer'">
-                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Mobile apps maker! Loved it.</span> please pick your most relevan infrastructure platform.</div>
+                            <div  class="questionTitle fBold" style="text-align:center"><span class="textBlue">Mobile apps maker! Loved it.</span> please pick your most relevant technology.</div>
                             <div class="d-flex justify-center">
                                 <div  class="d-flex justify-center align-center" style="flex-flow:row wrap; max-width:700px">
                                     <div class="squareButton ma-2" @click="nextStep('Your main technology','AWS')">
@@ -458,43 +458,24 @@ import qs from 'qs'
             }
         },
         methods:{
+
             retrieveTokenData(){
                 this.checked =false
                 this.predictFailed=false
                 this.predictSuccess=false
                 this.sendLoader = true
-
-                //data to send
-                let data = qs.stringify({
-                    'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
-                    'apikey': 'wRTjV0GKOVhUw5s3_kU5BSEn8IGWIPBIM2e-b-V5q6BQ' 
-                });
-
-                //axios config with method, url and header
-                let config = {
-                  method: 'POST',
-                  url: 'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/iam-proxy',
-                  headers: { 
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                  },
-                  data : data
-                };
-
-                //sending request
-                axios(config)
-                  .then((response)=>{
-                    this.accessToken = response.data.access_token
-                    // start predicting when th token is ready
+                axios({
+                    url:'/server-middleware/retrieve-ibm-access-token'
+                }).then(res=>{
+                    this.accessToken = res.data.data
                     this.startPredicting()
-                  })
-                  .catch((error)=> {
-                    console.log(error);
-                  });
-
+                }).catch(err=>{
+                    console.log(err)
+                })
+                
             },
             startPredicting(){
-                
-                //data input
+                 //data input
                 let data = {
                     "input_data": [
                         {
@@ -525,31 +506,22 @@ import qs from 'qs'
                             ]
                         ]
                         }
-                    ]
+                    ],
+                    "access_token": this.accessToken
                 }
 
-                //sending POST request to api endpoint
                 axios({
-                    url:'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/proxy-of-watson-auto-ai?version=2021-04-29',
+                    url:'/server-middleware/request-prediction',
                     method:'POST',
-                    //set up access token (IAM Token)
-                    headers:{
-                        'Authorization':'Bearer ' + this.accessToken
-                    },
-                    //include the data
-                     data:data
+                    data:data
                 }).then(res=>{
                     //set orediction result result
-                    this.expectedSalary = res.data.predictions[0].values[0][0].toFixed(0)
+                    this.expectedSalary = res.data.data.predictions[0].values[0][0].toFixed(0)
                     console.log(res)
                     //set success and failed status
                     this.predictSuccess = true
                     this.predictFailed = false
                 }).catch(err=>{
-                    if(err.response){
-                        //print error
-                        this.errorCode = err.response.data.errors[0].code
-                    }
                     this.predictSuccess = false
                     this.predictFailed = true
                 }).finally(res=>{
@@ -557,8 +529,8 @@ import qs from 'qs'
                     this.checked = true
                 })
 
-
             },
+
             nextStep(features,value){
                 if(this.predictStep==9){
                     let today = new Date()
