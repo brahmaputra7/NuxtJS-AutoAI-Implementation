@@ -464,6 +464,7 @@ import qs from 'qs'
                 this.predictFailed=false
                 this.predictSuccess=false
                 this.sendLoader = true
+                console.log("req")
                 axios({
                     url:'/server-middleware/retrieve-ibm-access-token'
                 }).then(res=>{
