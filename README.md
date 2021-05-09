@@ -1,6 +1,6 @@
 # Using AutoAI with IBM's Watson Studio to predict IT Professionals Salary in the EU region
 
-> Prediction of Salary for IT Professionals based on years of experience, city, programming language, etc.
+> This is a progressive web application that purposed to prediction the salary for IT Professionals based on years of experience, city, programming language, etc.
 > 
 
 > This is a demo project to show how to integrate NuxtJS application with IBM Cloud's services, in this case is IBM Watson Studio.
