@@ -233,7 +233,7 @@
                                     <div class="choiceButton ma-2" @click="nextStep('Company type','Product')">
                                         Company that produce products (e.g. Google, Facebook, IBM)
                                     </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('Company Type','Consulting')">
+                                    <div class="choiceButton ma-2" @click="nextStep('Company type','Consulting')">
                                         Consulting Company (e.g. Accenture, Atos, T-Systems)
                                     </div>
                                 </div>
@@ -365,7 +365,7 @@
                                     <div class="choiceButton ma-2" @click="nextStep('Gender','Female')">
                                         Female
                                     </div>
-                                    <div class="choiceButton ma-2" @click="nextStep('Gender','Male')">
+                                    <div class="choiceButton ma-2" @click="nextStep('Gender','Rather not say')">
                                         Rather Not Say
                                     </div>
                                 </div>
@@ -647,12 +647,14 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
                 })
             },
             nextStep(features,value){
+              console.log(this.predictStep)
                 if(this.predictStep==9){
                     let today = new Date()
                     let born = new Date(value)
                     let age = (today.getFullYear() - born.getFullYear())
                     this.features[features] = age
                 }else if(this.predictStep==10){
+                     this.features[features] = value
                     this.retrieveTokenData()
                 }else{
                      if(features=='Seniority level'&&value=='Junior'){
@@ -665,6 +667,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
                        this.yearsExperience = 10
                      }
                      this.features[features] = value
+                     console.log(value)
                 }
                 this.predictStep+=1
             },
