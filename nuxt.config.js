@@ -1,8 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
-import serveStatic from 'serve-static'
 
 export default {
-  target: 'server',
+  mode:'spa',
   /*
   ** Headers of the page
   */
@@ -25,11 +24,6 @@ export default {
   /*
   ** Global CSS
   */
-  serverMiddleware: [
-     // Will register redirect-ssl npm package
-
-    { path: "/server-middleware", handler: "~/server-middleware/rest.js" },
-  ],
 
   css: [
   ],
