@@ -75,35 +75,10 @@
     </div>
 
     <div
-      class="white--text pa-2 d-flex justify-space-between"
-      style="
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #194b8f;
-        z-index: 15;
-        font-size: 0.9em;
-      "
+      class="white--text pa-2 d-flex justify-space-between demoProject"
     >
       <div><a style="color:#fff" href="https://github.com/brahmaputra7/NuxtJS-AutoAI-Implementation" target="_blank">This is a demo project</a></div>
       <div><b>Brahma Putra</b></div>
     </div>
   </div>
 </template>
-
-<script>
-import axios from "axios";
-import qs from "qs";
-
-
-export default {
-  components: {
-    accessToken: "",
-  },
-  created() {},
-  methods: {
-    
-          
-  },
-};
-</script>

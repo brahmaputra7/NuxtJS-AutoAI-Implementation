@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-5" style="background-attachment:fixed;background-position:center;background-size:cover":style="{'background-image': `url(${require('../assets/bg.jpg')})`}">
+   <div class="pa-5" style="background-attachment:fixed;background-position:center;background-size:cover":style="{'background-image': `url(${require('../assets/bg.jpg')})`}">
     <div style="position: fixed; left: 10px; top: 10px">
       <v-btn fab dark class="mr-2 green" @click="$router.push('/')"
         ><v-icon>mdi-home</v-icon></v-btn

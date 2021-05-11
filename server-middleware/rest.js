@@ -6,7 +6,7 @@ import qs from 'qs'
 
 app.use(bodyParser.json())
 
-//sending prediction input
+//endpoint of requesting autoai prediction
 app.post('/request-autoai-prediction', (req, res) => {
 
     //requesting Access token
@@ -44,6 +44,7 @@ app.post('/request-autoai-prediction', (req, res) => {
         })
     }
     
+    //call request function
     requestAccessToken()
 
     let requestPrediction = (access_token)=>{
@@ -70,7 +71,7 @@ app.post('/request-autoai-prediction', (req, res) => {
     
         }).catch(err => {
             console.log(err)
-            
+
             //returning error response message
             if (err.response) {
                 res.json({ data: err.response.message })
