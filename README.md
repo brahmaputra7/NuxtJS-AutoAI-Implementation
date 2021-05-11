@@ -9,7 +9,8 @@
 > To see the sample code of how to retrieve an access_token and sending prediction results through the serverMiddleware endpoints, you can open the server-middleware directory >  then open rest.js
 > 
 
-> To see the implementation of those endpoints, you can open Pages > Predict > Salary.vue, then scroll down to thise method : startPredicting()
+> To see the implementation of those endpoints, you can open Pages > Predict > Salary.vue, then scroll down to this method : startPredicting()
+> 
 
 ## Build Setup
 
