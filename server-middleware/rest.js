@@ -12,7 +12,7 @@ app.post('/request-autoai-prediction', (req, res) => {
     //requesting Access token
     let requestAccessToken = ()=>{
 
-        //data to send
+        //defining data to send
        let data = qs.stringify({
         'grant_type': 'urn:ibm:params:oauth:grant-type:apikey',
         'apikey': process.env.VUE_APP_API_KEY
@@ -36,17 +36,21 @@ app.post('/request-autoai-prediction', (req, res) => {
                 //once the access token ready, then we can request for prediction
                 requestPrediction(access_token)
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((err) => {
+                //printing error message
+                if(err.response){
+                    console.log(err.response.message)
+                }
         })
     }
     
     requestAccessToken()
 
     let requestPrediction = (access_token)=>{
+        
         axios({
             //endpoint of the deployed prediction model
-            url: 'https://gw.jp-tok.apigw.appdomain.cloud/api/4635e8924e0681012c39e6a33b37e10b413cf33e443cb4bbf5ab3325ebe4c10d/proxy-of-watson-auto-ai?version=2021-04-29',
+            url: 'https://jp-tok.ml.cloud.ibm.com/ml/v4/deployments/15d46f3b-3f27-492d-a900-756cace9c8f6/predictions?version=2021-04-29',
     
             //XHR method
             method: 'POST',
@@ -60,13 +64,14 @@ app.post('/request-autoai-prediction', (req, res) => {
             data: { input_data: req.body.input_data }
     
         }).then(response => {
-            console.log(response)
+
             //returning the response to client-side
             res.json({ data: response.data })
     
         }).catch(err => {
             console.log(err)
-            //returning error message
+            
+            //returning error response message
             if (err.response) {
                 res.json({ data: err.response.message })
             }
