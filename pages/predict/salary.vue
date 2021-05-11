@@ -633,23 +633,32 @@ export default {
         pdfMake.createPdf(docDefinition).open();
       },
 
-    nextStep(features, value) {
-      if (this.predictStep == 9) {
-        let today = new Date();
-        let born = new Date(value);
-
-        let age = today.getFullYear() - born.getFullYear();
-        this.features[features] = age;
-      } else if (this.predictStep == 10) {
-        this.startPredicting();
-      } else {
-        this.features[features] = value;
-      }
-      this.predictStep += 1;
+    nextStep(features,value){
+        if(this.predictStep==9){
+            let today = new Date()
+            let born = new Date(value)
+            let age = (today.getFullYear() - born.getFullYear())
+            this.features[features] = age
+        }else if(this.predictStep==10){
+              this.features[features] = value
+            this.startPredicting()
+        }else{
+              if(features=='Seniority level'&&value=='Junior'){
+                this.yearsExperience = 1
+              }else if(features=='Seniority level'&&value=='Middle'){
+                this.yearsExperience = 3
+              }else if(features=='Seniority level'&&value=='Senior'){
+                this.yearsExperience = 7
+              }else if(features=='Seniority level'&&value=='Lead'){
+                this.yearsExperience = 10
+              }
+              this.features[features] = value
+        }
+        this.predictStep+=1
     },
     formatSalary(value) {
-      let val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        let val = (value/1).toFixed(0).replace('.', ',')
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
     },
   },
   computed: {
