@@ -805,24 +805,15 @@ export default {
     };
   },
   methods: {
-    retrieveTokenData() {
+    startPredicting() {
+
+      //UI Status
       this.checked = false;
       this.predictFailed = false;
       this.predictSuccess = false;
       this.sendLoader = true;
-      axios({
-        url: "/server-middleware/retrieve-ibm-access-token",
-      })
-        .then((res) => {
-          this.accessToken = res.data.data;
-          this.startPredicting();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    startPredicting() {
-      //data input
+
+      //defining data input
       let data = {
         fields: [
           "Age",
@@ -852,20 +843,22 @@ export default {
         ],
       };
 
+      //request for AutoAI prediction through the serverMiddleware
       axios({
         //serverMiddleware Endpoint
-        url: "/server-middleware/request-prediction",
+        url: "/server-middleware/request-autoai-prediction",
 
         //Method
         method: "POST",
 
         //required data
         data: {
-          input_data: [data],
-          accessToken: this.accessToken,
+          input_data: [data]
         },
       })
         .then((res) => {
+          console.log(res)
+          
           //set prediction result
           this.expectedSalary = res.data.data.predictions[0].values[0][0].toFixed(
             0
@@ -895,7 +888,7 @@ export default {
         let age = today.getFullYear() - born.getFullYear();
         this.features[features] = age;
       } else if (this.predictStep == 10) {
-        this.retrieveTokenData();
+        this.startPredicting();
       } else {
         this.features[features] = value;
       }
