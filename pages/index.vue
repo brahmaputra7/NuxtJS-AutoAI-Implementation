@@ -10,6 +10,7 @@
         <span class="primary-mn" @click="$router.push('/predict')"
           >Get Started</span
         >
+       
         <!-- Login Button Navbar End -->
       </section>
     </div>
@@ -24,27 +25,29 @@
                   >Career decision intelligence</span
                 >
               </div>
-              <div class="fMedium">
-                We help IT Professionals to predict their salary in EU Region,
+              <div class="fMedium subText">
+                We help IT Professionals to predict their salary in the EU Region,
                 based on the skillset, years of experience, languages, and other
                 features. We also able to suggest which city is the most
                 relevant to start their new career.
               </div>
-              <v-btn
-                class="mt-5"
-                rounded
-                outlined
-                color="blue"
-                @click="$router.push('/predict')"
-                >Get Started <v-icon>mdi-arrow-right</v-icon></v-btn
-              >
+              <div class="getStarted">
+                <v-btn
+                  class="mt-5"
+                  rounded
+                  outlined
+                  color="blue"
+                  @click="$router.push('/predict')"
+                  >Get Started <v-icon>mdi-arrow-right</v-icon></v-btn
+                >
+              </div>
               <v-alert class="mt-5" color="blue" type="info" dense text>
                 <small
                   >This project utilizes
                   <a
                     href="https://www.ibm.com/cloud/watson-studio/autoai?cm_sp=freelancer-_-AutoAI-_-cta"
                     target="_blank"
-                    ><b>Auto AI</b></a
+                    ><b>AutoAI</b></a
                   >, the new feature of
                   <a
                     href="https://www.ibm.com/cloud/watson-studio/autoai?cm_sp=freelancer-_-AutoAI-_-cta"
@@ -63,6 +66,7 @@
               speed="1"
               style="width: 100%; max-width: 500px"
               loop
+              class="mx-auto"
               autoplay
             ></lottie-player>
           </v-col>
@@ -73,7 +77,7 @@
     <div
       class="white--text pa-2 d-flex justify-space-between"
       style="
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
         background-color: #194b8f;
@@ -81,7 +85,7 @@
         font-size: 0.9em;
       "
     >
-      <div>This is a demo project</div>
+      <div><a style="color:#fff" href="https://github.com/brahmaputra7/NuxtJS-AutoAI-Implementation" target="_blank">This is a demo project</a></div>
       <div><b>Brahma Putra</b></div>
     </div>
   </div>
@@ -91,11 +95,15 @@
 import axios from "axios";
 import qs from "qs";
 
+
 export default {
   components: {
     accessToken: "",
   },
   created() {},
-  methods: {},
+  methods: {
+    
+          
+  },
 };
 </script>

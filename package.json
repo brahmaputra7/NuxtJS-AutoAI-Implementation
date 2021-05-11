@@ -20,6 +20,7 @@
     "core-js": "^3.12.1",
     "express": "^4.17.1",
     "nuxt": "^2.0.0",
+    "pdfmake": "^0.1.71",
     "redirect-ssl": "^2.0.1",
     "xmlhttprequest": "^1.8.0"
   },

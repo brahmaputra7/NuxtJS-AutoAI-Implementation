@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pa-5" style="background-attachment:fixed;background-position:center;background-size:cover":style="{'background-image': `url(${require('../assets/bg.jpg')})`}">
     <div style="position: fixed; left: 10px; top: 10px">
       <v-btn fab dark class="mr-2 green" @click="$router.push('/')"
         ><v-icon>mdi-home</v-icon></v-btn
@@ -35,7 +35,7 @@
               @click="$router.push('/predict/salary')"
             >
               <v-icon class="mr-2">mdi-cash-multiple</v-icon>I want to predict
-              my salary if I work in EU Region
+              my salary if I work in the EU Region
             </div>
             <div class="choiceButton_disabled ma-2 mx-auto">
               <v-icon class="mr-2">mdi-city-variant</v-icon> (Coming Soon) I
