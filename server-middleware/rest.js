@@ -37,6 +37,7 @@ app.post('/request-autoai-prediction', (req, res) => {
                 requestPrediction(access_token)
             })
             .catch((err) => {
+                console.log(err)
                 //printing error message
                 if(err.response){
                     console.log(err.response.message)
