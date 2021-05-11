@@ -19,7 +19,7 @@ app.post('/request-autoai-prediction', (req, res) => {
         });
 
         //axios config with method, url and header
-        let config = {
+        let config = {  
             method: 'POST',
             url: 'https://iam.cloud.ibm.com/identity/token',
             headers: {
