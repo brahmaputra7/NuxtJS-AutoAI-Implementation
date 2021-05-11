@@ -217,7 +217,7 @@
                                             <div style="font-size:0.5em">years</div>
                                         </template>
                                     </v-text-field>
-                                    <v-btn block color="blue"class="mt-5"  dark @click="nextStep('Total years of experience',yearsExperience)">OK!</v-btn>
+                                    <v-btn block color="blue" class="mt-5"  dark @click="nextStep('Total years of experience',yearsExperience)">OK!</v-btn>
                                 </div>
                             </div>
                         </div>
