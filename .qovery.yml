@@ -1,0 +1,11 @@
+---
+application:
+  name: "nuxtjs-autoai-implementation"
+  project: "Techpath"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-nuxtjs-autoai-implementation"
+  routes:
+  - application_name: "nuxtjs-autoai-implementation"
+    paths:
+    - "/*"
